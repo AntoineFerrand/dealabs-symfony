@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Votre profil{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="{{ asset('build/images/favicon.png') }}">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('style/app') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('js/app') }}
+    {% endblock %}
+</head>
+<body>
+{% include 'menu.html.twig' %}
+    {% set route = app.request.attributes.get("_route") %}
+    <div id="content" class="content p-0">
+        <div class="profile-header">
+            <div class="profile-header-cover"></div>
+            <div class="profile-header-content">
+                    {% if app.user.avatar is defined and app.user.avatar != null %}
+                        <div class="profile-header-img text-white d-flex justify-content-center align-items-center ">
+                            <img src="{{ vich_uploader_asset(app.user.avatar, 'imageFile') != null ? vich_uploader_asset(app.user.avatar, 'imageFile') : asset('build/images/default.jpg') }}"
+                                 class="img-fluid image-profile"
+                                 alt="Image de profil">
+                        </div>
+                    {% else %}
+                        <div class="profile-header-img bg-primary text-white d-flex justify-content-center align-items-center ">
+                            {{ app.user.login | slice(0,1) | upper }}
+                        </div>
+                    {% endif %}
+                <div class="profile-header-info">
+                    <h4 class="m-t-sm">{{ app.user.login }}</h4>
+                    <p class="m-b-sm">{{ app.user.email }}</p>
+                </div>
+            </div>
+            <ul class="profile-header-tab nav nav-tabs bg-light py-2">
+                <li class="nav-item">
+                    <a href="{{ path('user') }}"
+                       class="nav-link {{ route == "user" ? 'active' : '' }}"
+                       data-toggle="tab">Aperçu
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('created') }}"
+                       class="nav-link {{ app.request.attributes.get("_route") == "created" ? 'active' :'' }}"
+                       data-toggle="tab">Deals Créés</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('saved') }}" class="nav-link {{ route == "saved" ? 'active' : '' }}"
+                       data-toggle="tab">Deals Sauvegardés</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('new-alert') }}" class="nav-link {{ app.request.attributes.get("_route") == "new-alert" ? 'active' :'' }}"
+                        data-toggle="tab">Mes Alertes</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('parametres') }}" class="nav-link {{ route == "parametres" ? 'active' : '' }}" data-toggle="tab">
+                        Paramètres
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% block body %}{% endblock %}
+</body>
+</html>

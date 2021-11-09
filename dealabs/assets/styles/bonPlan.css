@@ -1,0 +1,8 @@
+.prix * { margin: 5px; }
+.text-gray { color: gray }
+.note { width: 37px; height: 37px;}
+.show-code-promo { width:20% }
+.cold { color: #0a53be }
+.hot { color: #b02a37 }
+.show-card-body * { margin: 10px 5px; }
+.date-div { border: solid lightgrey 1px; border-radius: 4px; color: grey }

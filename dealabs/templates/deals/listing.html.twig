@@ -1,0 +1,129 @@
+{% extends ext %}
+{% block title %}{{ tabTitle }}{% endblock %}
+{% block body %}
+    {% set route = app.request.attributes.get('_route') %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    <div class="{{ ext == "user/menu-user.html.twig"? 'container pt-4' : '' }}">
+    {% if deals is not empty %}
+        <div class="row">
+            <h2 class="display-6">
+                {{ pageTitle }}
+            </h2>
+        </div>
+    {% endif %}
+        <div class="d-flex flex-row flex-wrap justify-content-around">
+            {% if deals is empty %}
+                <img src="{{ asset('build/images/NoData.png') }}" class="img-fluid" alt="Pas de deals trouvés">
+                <div class="row">
+                    <h2 class="display-4" style="text-align: center">C'est vide, par içi.</h2>
+                    <h3 class="display-6" style="text-align: center">Oops ! Il semblerait qu'il n'y ait pas de deals trouvés ici.</h3>
+                </div>
+            {% endif %}
+            {% for deal in deals%}
+                {% if deal.type == "deal" %}
+                    <div class="card w-275 m-3">
+                        <div class="d-flex justify-content-around">
+                            <div class="border rounded">
+                                <a href="{{ path("doVote", {id: deal.getId(), route: route, routeParams: routeParams, type: "down" }) }}">
+                                    <button class="btn btn-outline-primary rounded-circle border-white fw-bold note-button">-</button></a>
+                                <span class="note {{ deal.getVote()<=0 ? 'cold' :'hot' }}" >{{ deal.getVote() }}°</span>
+                                <a href="{{ path("doVote", {id: deal.getId(), route: route, routeParams: routeParams, type: "up" }) }}">
+                                    <button class="btn btn-outline-danger rounded-circle border-white fw-bold note-button">+</button></a>
+                            </div>
+                            <div class="temps d-flex align-items-center expiration-date"><i class="fa fa-calendar deal-icon" aria-hidden="true"></i><span>{{ deal.creationDate | date('d/m/Y') }}</span></div>
+                        </div>
+                        <img src="{{ vich_uploader_asset(deal, 'imageFile') != null ? vich_uploader_asset(deal, 'imageFile') : asset('build/images/default.jpg') }}" class="img-fluid" alt="Image du deal">
+                        <div class="card-body d-flex flex-column">
+                            <div class="badges-box">
+                                {% for groupe in deal.getGroupes() %}
+                                    <span class="badge badge-primary">{{ groupe.nom }}</span>
+                                {% endfor %}
+                            </div>
+                            <h4 class="card-title">{{ deal.getTitle() }}</h4>
+                            <p class="text-muted text-muted-deal"> Bon plans <a href="{{ deal.partenaire.url }}">{{ deal.partenaire.nom }}</a></p>
+                            <div class="prix d-flex justify-content-start align-items-center">
+                                <p class="fw-bold text-danger mx-1">{{ deal.discountPrice }}€</p>
+                                <del class="text-gray">{{ deal.normalPrice }}€</del>
+                                <p>-{{(((deal.normalPrice - deal.discountPrice) / deal.normalPrice) * 100)|round(0, 'common') }}%</p>
+                                | <i class="fas fa-truck"></i> {% if deal.shipping <= 0 %} Gratuit {% else %} {{ deal.shipping~"€" }} {% endif %}
+                            </div>
+                            <p class="card-text">{{ deal.getDescription() }}</p>
+                            <p class="card-text fw-bold">
+                                {% if deal.creator.avatar is defined and deal.creator.avatar != null %}
+                                    <img src="{{ vich_uploader_asset(deal.creator.avatar, 'imageFile') != null ? vich_uploader_asset(deal.creator.avatar, 'imageFile') : asset('build/images/default.jpg') }}"
+                                         class="img-fluid img-avatar"
+                                         alt="Image du créateur">
+                                {% else %}
+                                    <a class="btn btn-primary rounded-circle">
+                                        {{ deal.creator.username | slice(0,1) | upper }}
+                                    </a>
+                                {% endif %}
+                                {{ deal.creator.login }}
+                            </p>
+                            <div class="mt-auto buttons-box">
+                                <a href="{{ path('bonPlanShow', {id: deal.id}) }}" class="btn btn-primary">Détails <i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                <a target="_blank" href="{{ deal.link }}" class="btn btn-primary">Voir<i class="fas fa-external-link-alt mx-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if deal.type == "code" %}
+                    {% set difference = date("now" | date()).diff(deal.expirationDate) %}
+                    {% set leftMonths = difference.m %}
+                    {% set leftDays = difference.days %}
+                    {% set leftYears = difference.y %}
+                    <div class="card w-275 m-3">
+                        <div class="d-flex justify-content-around">
+                            <div class="border rounded">
+                                <a href="{{ path("doVote", {id: deal.getId(), route: route, routeParams: routeParams, type: "down" }) }}">
+                                    <button class="btn btn-outline-primary rounded-circle border-white fw-bold note-button">-</button></a>
+                                <span class="note {{ deal.getVote()<=0 ? 'cold' :'hot' }}" >{{ deal.getVote() }}°</span>
+                                <a href="{{ path("doVote", {id: deal.getId(), route: route, routeParams: routeParams, type: "up" }) }}">
+                                    <button class="btn btn-outline-danger rounded-circle border-white fw-bold note-button">+</button></a>
+                            </div>
+                            <div class="temps d-flex align-items-center">
+                                <i class="fas fa-hourglass mx-2">
+                                <span>
+                                    {% if date("now" | date()) > deal.expirationDate %}
+                                        Expiré
+                                    {% else %}
+                                        {{ leftYears > 0 ? (leftYears ~ " an(s)") : leftMonths > 0 ? (leftMonths ~ " mois") : leftDays > 0 ? (leftDays ~ " jour(s)") }}
+                                    {% endif %}
+                                </span>
+                                </i>
+                            </div>
+                        </div>
+                        <img src="{{ vich_uploader_asset(deal, 'imageFile') != null ? vich_uploader_asset(deal, 'imageFile') : asset('build/images/default.jpg') }}" class="img-fluid" alt="Image de code promo">
+                        <div class="card-body d-flex flex-column">
+                            <div class="badges-box">
+                                {% for groupe in deal.getGroupes() %}
+                                    <span class="badge badge-primary">{{ groupe.nom }}</span>
+                                {% endfor %}
+                            </div>
+                            <h4 class="card-title">{{ deal.getTitle() }}</h4>
+                            <p class="text-muted text-muted-code"> Codes promo <a href="{{ deal.partenaire.url }}">{{ deal.partenaire.nom }}</a></p>
+                            <p class="card-text">{{ deal.getDescription() }}</p>
+                            <p class="card-text fw-bold">
+                                {% if deal.creator.avatar is defined and deal.creator.avatar != null %}
+                                    <img src="{{ vich_uploader_asset(deal.creator.avatar, 'imageFile') != null ? vich_uploader_asset(deal.creator.avatar, 'imageFile') : asset('build/images/default.jpg') }}"
+                                         class="img-fluid img-avatar"
+                                         alt="Image du créateur">
+                                {% else %}
+                                    <a class="btn btn-primary rounded-circle">
+                                        {{ deal.creator.username | slice(0,1) | upper }}
+                                    </a>
+                                {% endif %}
+                                {{ deal.creator.login }}
+                            </p>
+                            <p class="d-flex justify-content-between card-text code-promo rounded p-2 text-primary mt-auto">
+                                <span>{{ deal.promoCode }}</span>
+                                <i class="fas fa-cut fs-4 "></i>
+                            </p>
+
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

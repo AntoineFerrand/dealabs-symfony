@@ -1,0 +1,45 @@
+{% extends 'user/menu-user.html.twig' %}
+{% block title %}Nouvelle alerte{% endblock %}
+{% block body %}
+    <div class="d-flex flex-row flex-wrap justify-content-around my-3">
+
+        <div class="w70 d-flex bg-white flex-row card fw-bold">
+            <span class="w-50 text-center py-2 nav-item">
+                <a href="{{ path('fil-alert') }}" class="nav-link no-selected-link"><i class="fas fa-bell"></i> Fil d'alertes</a>
+            </span>
+            <span class="w-50 text-center py-2 nav-item selected">
+                <a href="{{ path('new-alert') }}" class="nav-link selected-link"><i class="fas fa-cog"></i> Gérer mes alertes</a>
+            </span>
+        </div>
+
+        <div class=" w70 card mt-3">
+            <div class="card-body">
+                <h3>Nouvelle alerte</h3>
+                {{ form_start(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+        <div class="w70 card mt-3">
+            <div class="card-header">
+                <h4>
+                    <i class="far fa-chart-bar m-2"></i>Mes alertes sauvegardées
+                </h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% if alertes == null or alertes is empty %}
+                        <p>Vous n'avez pas d'alertes</p>
+                    {% else %}
+                        {% for alerte in alertes %}
+                            <li>
+                                <span>{{ alerte.motscles }}</span>
+                                <a href="{{ path('del-alerte', {id: alerte.id}) }}"><i class="fas fa-trash"></i></a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

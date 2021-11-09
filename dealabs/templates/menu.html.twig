@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fw-bold primary-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('home') }}">
+            <img src="{{ asset('build/images/logo.png') }}" alt="Logo Deelabz" width="130" height="53" class="d-inline-block align-text-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('bonsPlans') }}"><i class="fa fa-fire" aria-hidden="true"></i> Bons Plans</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('codesPromos') }}"><i class="fa fa-fire" aria-hidden="true"></i> Codes Promo</a>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle fw-bold" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ path('createBonPlan') }}">Publier un bon plan</a>
+                            <a class="dropdown-item" href="{{ path('createCodePromo') }}">Publier un code promo</a>
+                            <a class="dropdown-item" href="{{ path('createPartenaire') }}">Ajouter un partenaire</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <form action="/search" method="GET" class="form-inline my-2 my-lg-0 mx-2">
+                <input name="q" class="form-control mr-sm-2" type="search" placeholder="Rechercher un deal" aria-label="Rechercher">
+            </form>
+            {% if not app.user %}
+                <a class="btn btn-dark d-flex mx-2" href="{{ path('app_login') }}">Connexion</a>
+                <a class="btn btn-dark d-flex mx-2" href="{{ path('registration') }}">Créer un compte</a>
+            {% else %}
+                {% if app.user.avatar is defined and app.user.avatar != null %}
+                    <a href="{{ path('user') }}">
+                        <img src="{{ vich_uploader_asset(app.user.avatar, 'imageFile') != null ? vich_uploader_asset(app.user.avatar, 'imageFile') : asset('build/images/default.jpg') }}"
+                             class="img-fluid img-avatar"
+                             alt="Image de profil">
+                    </a>
+                {% else %}
+                    <a class="btn btn-primary rounded-circle" href="{{ path('user') }}">
+                        {{ app.user.username | slice(0,1) | upper }}
+                    </a>
+                {% endif %}
+                <a class="btn btn-dark d-flex mx-2" href="{{ path('app_logout') }}">Déconnexion</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+{% for message in app.flashes('success') %}
+    <div class="popup-div alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('error') %}
+    <div class="popup-div alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="{{ asset('build/images/favicon.png') }}">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('style/app') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('js/app') }}
+    {% endblock %}
+</head>
+<body>
+    {% include 'menu.html.twig' %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light secondary-navbar">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active secondary-navbar-link fw-bold" aria-current="page" href="{{ path('home') }}"><i class="far fa-calendar-check"></i> A la une</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link secondary-navbar-link fw-bold" href="{{ path('hot') }}"><i class="fa fa-fire" aria-hidden="true"></i> Hot</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container pt-4">
+        {% block body %}{% endblock %}
+    </div>
+</body>
+</html>

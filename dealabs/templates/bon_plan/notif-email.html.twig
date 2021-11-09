@@ -1,0 +1,9 @@
+<h3 class="text-primary">De nouveaux articles sont disponibles en lien avec vos alertes!</h3>
+<div>
+    <h4>Ces articles devraient vous intéresser</h4>
+    <ul>
+        {% for deal in deals %}
+            <li>{{ deal.title }}</li>
+        {% endfor %}
+    </ul>
+</div>

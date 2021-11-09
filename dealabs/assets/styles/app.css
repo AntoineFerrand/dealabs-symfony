@@ -1,0 +1,20 @@
+@import "~bootstrap";
+@import "bonPlan.css";
+@import "deals.css";
+@import "home.css";
+@import "user.css";
+
+body {
+    background-color: lightgray;
+}
+
+.badge-image {
+    max-height: 125px;
+}
+
+.flash-notice {
+    background-color: green;
+    color: white;
+    text-align: center;
+}
+

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% block title %}Détail d'un bon plan{% endblock %}
+{% block body %}
+    {% set route = app.request.attributes.get('_route') %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    <div class="card">
+        <h5 class="card-header">
+            <a href="{{ path("doVote", {id: bonPlan.getId(), route: route, routeParams: routeParams, type: "down" }) }}">
+                <button class="btn btn-outline-primary rounded-circle border-white fw-bold note">-</button></a>
+            <span class="{{ bonPlan.getVote()<=0 ? 'cold' :'hot' }}" >{{ bonPlan.getVote() }}°</span>
+            <a href="{{ path("doVote", {id: bonPlan.getId(), route: route, routeParams: routeParams, type: "up" }) }}">
+                <button class="btn btn-outline-danger rounded-circle border-white fw-bold note">+</button></a>
+            {{ bonPlan.getTitle() }}
+        </h5>
+        <div class="show-card-body">
+            <p class="card-text">{{ bonPlan.getDescription() }}</p>
+            <div class="prix d-flex justify-content-start">
+                <p class="fw-bold text-danger mx-1">{{ bonPlan.discountPrice }}€</p>
+                <del class="text-gray">{{ bonPlan.normalPrice }}€</del>
+                <p>-{{(((bonPlan.normalPrice - bonPlan.discountPrice) / bonPlan.normalPrice) * 100)|round(0, 'common') }}%</p>
+            </div>
+            <div>
+                <i class="fas fa-truck"></i> {{ bonPlan.getShipping() == 0 ? "Gratuite" : bonPlan.getShipping() ~ "€" }} |
+                Bon plan<a href="{{ bonPlan.partenaire.url }}">{{ bonPlan.partenaire.nom }}</a>
+            </div>
+            <div class="date-div">
+                <i class="fas fa-clock"></i> {{ bonPlan.getCreationDate() | date('d F Y') }}
+            </div>
+            <p>
+                {% if bonPlan.creator.avatar is defined and bonPlan.creator.avatar != null %}
+                    <img src="{{ vich_uploader_asset(bonPlan.creator.avatar, 'imageFile') != null ? vich_uploader_asset(bonPlan.creator.avatar, 'imageFile') : asset('build/images/default.jpg') }}"
+                         class="img-fluid img-avatar"
+                         alt="Image du créateur">
+                {% else %}
+                    <a class="btn btn-primary rounded-circle">
+                        {{ bonPlan.creator.username | slice(0,1) | upper }}
+                    </a>
+                {% endif %}
+                {{ bonPlan.creator.login }}
+            </p>
+            <a target="_blank" href="{{ bonPlan.link }}" class="btn btn-primary btn-sm">Voir le bon plan<i class="fas fa-external-link-alt mx-2"></i></a>
+            {% if app.user %}
+                <a href="{{ path('saved', {id: bonPlan.getId()}) }}" class="btn btn-secondary btn-sm">
+                    Sauvegarder ce deal <i class="fas fa-save"></i>
+                </a>
+                <a href="{{ path('signalBonPlan', {id: bonPlan.getId()}) }}" class="btn btn-danger btn-sm">
+                    Signaler ce deal <i class="fas fa-save"></i>
+                </a>
+            {% endif %}
+            <!--<button onclick="loaddoc()" class="btn btn-secondary btn-sm">Sauvegarder ce deal <i class="fas fa-save"></i></button>-->
+        </div>
+    </div>
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+    {% for comment in comments %}
+        {% set difference = date('now').diff(comment.date) %}
+        {% set leftMinutes = difference.i %}
+        {% set leftHours = difference.h %}
+        {% set leftDays = difference.days %}
+        {% set leftMonths = difference.m %}
+        {% set leftYears = difference.y %}
+        <div>
+            <div class="card w-100">
+                <div class="show-card-body">
+                    <h5 class="card-title">{{ comment.account.login }}</h5>
+                    <p style="color:grey">
+                        Il y a
+                        {{ leftYears > 0 ? ((leftYears ~ " an(s) ") ~ (leftMonths > 0 ? (" et " ~ leftMonths ~ " mois") : ""))
+                        : leftMonths > 0 ? (leftMonths ~ " mois")
+                        : leftDays > 0 ? (leftDays ~ " jour(s)")
+                        : leftHours > 0 ? ((leftHours ~ " heure(s)") ~ (leftMinutes > 0 ? (" et " ~ leftMinutes ~ " minutes") : ""))
+                        : leftMinutes > 0 ? (leftMinutes ~ " minute(s)")
+                        : "quelques secondes"
+                        }}
+                    </p>
+                    <p class="card-text">{{comment.content}}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

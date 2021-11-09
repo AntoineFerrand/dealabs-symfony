@@ -1,0 +1,224 @@
+.profile-header-img img {
+    max-width: 100%;
+}
+.prix * { margin: 5px; }
+.text-gray { color: gray }
+.note { font-weight: 550 }
+.note-button { width: 40px; height: 40px }
+.expiration-date { font-weight: 550 }
+.deal-icon { margin:5px }
+.code-promo { border: dashed gray 2px; }
+.buttons-box { align-self: center }
+.buttons-box > a { font-weight: bold; color: #373737 ; margin-left: 10px; margin-right: 10px; background-color: #E7D510; border-color:#E7D510}
+.buttons-box > a:hover { background-color: #CABC19; border-color: #CABC19 }
+.cold { color: #0a53be }
+.hot { color: #b02a37 }
+.badge-primary{
+    color: black;
+    background-color: yellow;
+}
+.badges-box {
+    margin-bottom: 0.5rem;
+}
+.card {
+    border-radius: 0.5rem !important;
+}
+.w-275 {
+    width: 27.5% !important;
+}
+.text-muted-code {
+    margin-bottom: 0.25rem !important;
+}
+.text-muted-deal {
+    margin-bottom: 0 !important;
+}
+
+
+.image-profile {
+    width: 4rem !important;
+    height: 4rem !important;
+    object-fit: cover;
+}
+.profile-info-list > li.img-list a {
+    display: inline-block;
+}
+.profile-info-list > li.img-list a img {
+    max-width: 2.25rem;
+    -webkit-border-radius: 2.5rem;
+    -moz-border-radius: 2.5rem;
+    border-radius: 2.5rem;
+}
+.coming-soon-cover img,
+.email-detail-attachment .email-attachment .document-file img,
+.email-sender-img img,
+.friend-list .friend-img img,
+.profile-header-img img {
+    max-width: 100%;
+}
+.table.table-profile th {
+    border: none;
+    color: #000;
+    padding-bottom: 0.3125rem;
+    padding-top: 0;
+}
+.table.table-profile td {
+    border-color: #c8c7cc;
+}
+.table.table-profile tbody + thead > tr > th {
+    padding-top: 1.5625rem;
+}
+.profile-header {
+    position: relative;
+    overflow: hidden;
+}
+.profile-header .profile-header-cover {
+    background: url(https://bootdey.com/img/Content/bg1.jpg) center no-repeat;
+    background-size: 100% auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+.profile-header .profile-header-cover:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0, rgba(0, 0, 0, 0.85) 100%);
+}
+.profile-header .profile-header-content,
+.profile-header .profile-header-tab,
+.profile-header-img {
+    position: relative;
+}
+.profile-header .profile-header-tab {
+    background: #fff;
+    list-style-type: none;
+    margin: -1.25rem 0 0;
+    padding: 0 0 0 8.75rem;
+    border-bottom: 2px solid #c8c7cc;
+    white-space: nowrap;
+}
+.profile-header .profile-header-tab > li {
+    display: inline-block;
+    margin: 0;
+}
+.profile-header .profile-header-tab > li > a {
+    display: block;
+    color: #000;
+    line-height: 1.25rem;
+    padding: 0.625rem 2rem;
+    text-decoration: none;
+    border: none;
+}
+.profile-header .profile-header-tab > li.active > a,
+.profile-header .profile-header-tab > li > a.active {
+    font-weight: bold;
+    box-shadow: 0 2px 5px -3px;
+}
+.profile-header .profile-header-content:after,
+.profile-header .profile-header-content:before {
+    content: "";
+    display: table;
+    clear: both;
+}
+.profile-header .profile-header-content {
+    color: #fff;
+    padding: 1.25rem;
+}
+body .fc th a,
+body .fc-widget-header a {
+    color: #000;
+}
+.profile-header-img {
+    float: left;
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    z-index: 10;
+    margin: 0 1.25rem 1rem 0;
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 1.6em;
+}
+.profile-header-info h4 {
+    font-weight: 500;
+    margin-bottom: 0.3125rem;
+}
+@media (max-width: 967px) {
+    .profile-header-img {
+        width: 3.625rem;
+        height: 3.625rem;
+        margin: 0;
+        font-size: 1.2em;
+    }
+    .profile-header-info {
+        margin-left: 6.5625rem;
+        padding-bottom: 0.9375rem;
+    }
+    .profile-header .profile-header-tab {
+        padding-left: 0;
+    }
+}
+@media (max-width: 767px) {
+    .profile-header .profile-header-cover {
+        background-position: top;
+    }
+
+    .profile-header-info {
+        margin-left: 4.6875rem;
+        padding-bottom: 0.9375rem;
+    }
+
+    .profile-header-info h4 {
+        margin: 0 0 0.3125rem;
+    }
+
+    .profile-header .profile-header-tab {
+        white-space: nowrap;
+        overflow: scroll;
+        padding: 0;
+    }
+
+    .profile-info-list > li {
+        padding: 0.625rem 0;
+    }
+
+    .profile-info-list > li.img-list a {
+        display: inline-block;
+    }
+
+    .profile-info-list > li.img-list a img {
+        max-width: 2.25rem;
+        -webkit-border-radius: 2.5rem;
+        -moz-border-radius: 2.5rem;
+        border-radius: 2.5rem;
+    }
+
+    .coming-soon-cover img,
+    .email-detail-attachment .email-attachment .document-file img,
+    .email-sender-img img,
+    .friend-list .friend-img img,
+    .profile-header-img img {
+        max-width: 100%;
+    }
+
+    .table.table-profile th {
+        border: none;
+        color: #000;
+        padding-bottom: 0.3125rem;
+        padding-top: 0;
+    }
+
+    .table.table-profile td {
+        border-color: #c8c7cc;
+    }
+
+    .table.table-profile tbody + thead > tr > th {
+        padding-top: 1.5625rem;
+    }
+}

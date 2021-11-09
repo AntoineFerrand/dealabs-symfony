@@ -1,0 +1,85 @@
+{% extends 'user/menu-user.html.twig' %}
+{% block title %}Détail d'un bon plan{% endblock %}
+{% block body %}
+    <div class="d-flex flex-row flex-wrap justify-content-around mt-5">
+        <div class="card stats">
+            <div class="card-header">
+                <h4>
+                    <i class="far fa-chart-bar m-2"></i>Statistiques
+                </h4>
+            </div>
+            <div class="card-body">
+                <p>Posts</p>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-tag m-1"></i>
+                    <span class="fw-bold m-1">{{ nbDeals }}</span>
+                    <span class="text-gray m-1">deals</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-comment m-1"></i>
+                    <span class="fw-bold m-1">{{ nbComs }}</span>
+                    <span class="text-gray m-1">commentaires</span>
+                </div>
+                <p class="mt-4">Palmarès</p>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-fire-alt m-1"></i>
+                    <span class="fw-bold m-1">{{ hotMax }}°</span>
+                    <span class="text-gray m-1">deal le plus hot</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-chart-line m-1"></i>
+                    <span class="fw-bold m-1">{{ moyenne }}°</span>
+                    <span class="text-gray m-1">en moyenne depuis 1an</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-chart-pie m-1"></i>
+                    <span class="fw-bold m-1">{{ hotPercent }}%</span>
+                    <span class="text-gray m-1 ">de deals hot</span>
+                </div>
+            </div>
+        </div>
+        <div class="card badges">
+            <div class="card-header">
+                <h4 class="text-center">
+                    <i class="fas fa-star"></i>Badges
+                </h4>
+            </div>
+
+            {% for badge in badges %}
+                {% if badge.name == "Surveillant" %}
+                    <div class="card-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="{{ asset('build/images/Surveillant.png') }}" class="badge-image img-fluid" alt="Image du badge surveillant">
+                                <h5 class="card-title fw-bold">Surveillant</h5>
+                                <p class="card-text">Vous avez voté sur 10 deals.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if badge.name == "Rapport de stage" %}
+                    <div class="card-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="{{ asset('build/images/RapportDeStage.png') }}" class="badge-image img-fluid" alt="Image du badge rapport de stage">
+                                <h5 class="card-title fw-bold">Rapport de stage</h5>
+                                <p class="card-text">Vous avez commenté 10 deals.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if badge.name == "Cobaye" %}
+                    <div class="card-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="{{ asset('build/images/Cobaye.png') }}" class="badge-image img-fluid" alt="Image du badge cobaye">
+                                <h5 class="card-title fw-bold">Cobaye</h5>
+                                <p class="card-text">Vous avez posté au moins 10 deals.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

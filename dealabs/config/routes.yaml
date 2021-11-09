@@ -1,0 +1,50 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+home:
+    path: /
+    controller: App\Controller\HomeController::aLaUne
+
+notConnectedError:
+    path: /not/connected/error
+    controller: App\Controller\ErrorController::notConnectedError
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+app_logout:
+    path: /logout
+    methods: GET
+
+codesPromos:
+    path: /listing/code/promo
+    controller: App\Controller\CodePromoController::listing
+
+bonsPlans:
+    path: /listing/bon/plan
+    controller: App\Controller\BonPlanController::listing
+
+createCodePromo:
+    path: /create/code/promo
+    controller: App\Controller\CodePromoController::create
+
+createBonPlan:
+    path: /create/bon/plan
+    controller: App\Controller\BonPlanController::create
+
+createPartenaire:
+    path: /create/partenaire
+    controller: App\Controller\PartenaireController::create
+
+bonPlanShow:
+    path: /{id}/bon/plan
+    controller: App\Controller\BonPlanController::show
+
+doVote:
+    path: /doVote
+    controller: App\Controller\VoteController::doVote
+
+parametres:
+    path: /parametres
+    controller: App\Controller\UserController::parametres

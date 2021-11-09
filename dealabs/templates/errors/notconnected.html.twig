@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Vous devez être connecté pour effectuer cette action</h1>
+    <p>
+        Cette fonctionnalité que vous essayez d'accéder nécessite
+        d'être connecté. Connectez vous <a href="{{ path('login') }}"> ici </a>
+        ou revenez à la page d'accueil <a href="{{ path('login') }}"> ici </a>.
+    </p>
+{% endblock %}

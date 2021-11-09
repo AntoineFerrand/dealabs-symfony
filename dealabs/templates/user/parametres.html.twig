@@ -1,0 +1,142 @@
+{% extends 'user/menu-user.html.twig' %}
+{% block title %}Paramètres{% endblock %}
+{% block body %}
+    <div class="d-flex flex-row flex-wrap justify-content-around mt-5">
+        <div class="card param-window">
+            <h1 class="param-title">Profil</h1>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body param-item">
+                        <div class="first">VOTRE AVATAR</div>
+                        <div class="second param-image">
+                            {{ form_start(imageForm) }}
+                            {{ form_row(imageForm.imageFile) }}
+                            {{ form_end(imageForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body param-item">
+                        <div class="first">
+                            VOTRE PSEUDONYME
+                        </div>
+                        <div class="second">
+                            <div class="js-loginEditText">
+                                <p class="param-data">
+                                    {{ account.getLogin() }}
+                                </p>
+                                <button type="button" class="btn btn-info js-loginEditButton text-white">Modifier votre login</button>
+                            </div>
+                            <div class="js-editControls js-loginEditControls hide">
+                                {{ form_start(loginForm) }}
+                                {{ form_row(loginForm.login) }}
+                                {{ form_row(loginForm.save, { 'attr': {'class': 'btn btn-info text-white w-100'} }) }}
+                                {{ form_row(loginForm.reset, { 'attr': {'class': 'btn btn-link js-loginEditButton'} }) }}
+                                {{ form_end(loginForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body param-item">
+                        <div class="first">
+                            VOTRE DESCRIPTION
+                        </div>
+                        <div class="second">
+                            <div class="js-descriptionEditText">
+                                <p class="param-data">
+                                    {% if account.getDescription() == "" %}
+                                        . . .
+                                    {% else %}
+                                        {{ account.getDescription() }}
+                                    {% endif %}
+                                </p>
+                                <button type="button" class="btn btn-info js-descriptionEditButton text-white">Modifier votre description</button>
+                            </div>
+                            <div class="js-editControls js-descriptionEditControls hide">
+                                {{ form_start(descriptionForm) }}
+                                {{ form_row(descriptionForm.description) }}
+                                {{ form_row(descriptionForm.save, { 'attr': {'class': 'btn btn-info text-white w-100'} }) }}
+                                {{ form_row(descriptionForm.reset, { 'attr': {'class': 'btn btn-link js-descriptionEditButton'} }) }}
+                                {{ form_end(descriptionForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body param-item">
+                        <div class="first">
+                            VOTRE ADRESSE E-MAIL
+                        </div>
+                        <div class="second">
+                            <div class="js-emailEditText">
+                                <p class="param-data">
+                                    {{ account.getEmail() }}
+                                </p>
+                                <button type="button" class="btn btn-info js-emailEditButton text-white">Modifier votre adresse e-mail</button>
+                            </div>
+                            <div class="js-editControls js-emailEditControls hide">
+                                {{ form_start(emailForm) }}
+                                {{ form_row(emailForm.email) }}
+                                {{ form_row(emailForm.save, { 'attr': {'class': 'btn btn-info text-white w-100'} }) }}
+                                {{ form_row(emailForm.reset, { 'attr': {'class': 'btn btn-link js-emailEditButton'} }) }}
+                                {{ form_end(emailForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body param-item">
+                        <div class="first">
+                            VOTRE MOT DE PASSE
+                        </div>
+                        <div class="second">
+                            <div class="js-passwordEditText">
+                                <button type="button" class="btn btn-info js-passwordEditButton text-white">Modifier votre mot de passe</button>
+                            </div>
+                            <div class="js-editControls js-passwordEditControls hide">
+                                {{ form_start(passwordForm) }}
+                                {{ form_row(passwordForm.old_password) }}
+                                {{ form_row(passwordForm.new_password) }}
+                                {{ form_row(passwordForm.confirm_new_password) }}
+                                {{ form_row(passwordForm.save, { 'attr': {'class': 'btn btn-info text-white w-100'} }) }}
+                                {{ form_row(passwordForm.reset, { 'attr': {'class': 'btn btn-link js-passwordEditButton'} }) }}
+                                {{ form_end(passwordForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body param-item">
+                        <div class="first">
+                            SUPPRIMER MON COMPTE
+                        </div>
+                        <div class="second">
+                            <div class="js-deleteEditText">
+                                <button type="button" class="btn btn-danger js-deleteEditButton text-white">Supprimer mon compte</button>
+                            </div>
+                            <div class="js-editControls js-deleteEditControls hide">
+                                {{ form_start(deleteForm) }}
+                                {{ form_row(deleteForm.old_password) }}
+                                {{ form_row(deleteForm.save, { 'attr': {'class': 'btn btn-info text-white w-100'} }) }}
+                                {{ form_row(deleteForm.reset, { 'attr': {'class': 'btn btn-link js-deleteEditButton'} }) }}
+                                {{ form_end(deleteForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

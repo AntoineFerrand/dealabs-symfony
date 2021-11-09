@@ -1,0 +1,22 @@
+.secondary-navbar {
+    background-color: #1d1f20 !important;
+    padding-left:9%
+}
+.secondary-navbar-link {
+    color: grey !important;
+}
+.primary-navbar {
+    background-color: #35373b !important;
+}
+.img-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.popup-div {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    z-index: 1;
+}

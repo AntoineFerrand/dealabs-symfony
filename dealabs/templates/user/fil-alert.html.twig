@@ -1,0 +1,40 @@
+{% extends 'user/menu-user.html.twig' %}
+{% block title %}Détail d'un bon plan{% endblock %}
+{% block body %}
+    <style>
+        .w70{
+            width: 70%;
+        }
+        .selected-link{
+            color: #6d6eed;
+        }
+        .selected-link:hover{
+            color: #9d9efd;
+        }
+        .no-selected-link{
+            color: black;
+        }
+        .no-selected-link:hover{
+            color: #666;
+        }
+        .selected{
+            background: #f5f5f5;
+        }
+
+    </style>
+    <div class="d-flex flex-row flex-wrap justify-content-around mt-3">
+
+        <div class="w70 d-flex bg-white flex-row card fw-bold">
+            <span class="w-50 text-center py-2 nav-item selected">
+                <a href="{{ path('fil-alert') }}" class="nav-link selected-link"><i class="fas fa-bell"></i> Fil d'alertes</a>
+            </span>
+            <span class="w-50 text-center py-2 nav-item">
+                <a href="{{ path('new-alert') }}" class="nav-link no-selected-link"><i class="fas fa-cog"></i> Gérer mes alertes</a>
+            </span>
+        </div>
+        <div class="container my-3">
+            {% include 'deals/listing.html.twig' %}
+        </div>
+    </div>
+
+{% endblock %}
